@@ -1,6 +1,6 @@
 name: usb_serial_scanners
 description: "A new Flutter plugin project."
-version: 0.0.1
+version: 0.1.1+2024122501
 homepage:
 publish_to: "none"
 

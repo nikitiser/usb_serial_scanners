@@ -10,3 +10,4 @@ export 'src/usb_serial_scanner.dart';
 export 'src/usb_serial_scanners_manager.dart';
 export 'src/usb_serial_scanner_meta.dart';
 export 'src/widgets/finder.dart';
+export 'src/widgets/usb_scanners_listener.dart';
