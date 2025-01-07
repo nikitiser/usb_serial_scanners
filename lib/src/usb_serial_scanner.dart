@@ -111,12 +111,12 @@ class UsbSerialScanner {
 
     if (isComplete) {
       _dataTimer?.cancel();
-      onRead(_buffer);
+      onRead(_buffer.trim());
       _buffer = '';
     } else {
       _dataTimer?.cancel();
       _dataTimer = Timer(timeoutForRead, () {
-        onRead(_buffer);
+        onRead(_buffer.trim());
         _buffer = '';
       });
     }
