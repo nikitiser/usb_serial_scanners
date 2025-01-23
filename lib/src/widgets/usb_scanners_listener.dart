@@ -19,7 +19,9 @@ class UsbScannersListener extends StatefulWidget {
 }
 
 class _UsbScannersListenerState extends State<UsbScannersListener> {
-  late StreamSubscription<String> _subscription;
+  StreamSubscription<String>? _subscription;
+  static StreamController<String>? _controller;
+  static int _listenerCount = 0;
 
   @override
   void initState() {
@@ -28,14 +30,38 @@ class _UsbScannersListenerState extends State<UsbScannersListener> {
   }
 
   void _startListening() {
-    _subscription = UsbSerialScannersManager.scanDataStream.listen((data) {
+    if (_controller == null || _controller!.isClosed) {
+      _controller = StreamController<String>.broadcast(
+        onListen: () {
+          _listenerCount++;
+          debugPrint("UsbScannersListener count: $_listenerCount");
+        },
+        onCancel: () {
+          _listenerCount--;
+          debugPrint("UsbScannersListener count: $_listenerCount");
+          if (_listenerCount == 0) {
+            _controller!.close();
+            _controller = null;
+          }
+        },
+      );
+
+      // Перенаправляем данные из оригинального потока в наш контроллер
+      UsbSerialScannersManager.scanDataStream.listen((data) {
+        if (_controller != null && !_controller!.isClosed) {
+          _controller!.add(data);
+        }
+      });
+    }
+
+    _subscription = _controller!.stream.listen((data) {
       widget.onScan(data);
     });
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
+    _subscription?.cancel();
     super.dispose();
   }
 
