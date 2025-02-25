@@ -1,0 +1,2 @@
+D:/MyWorks/usb_serial_scanners/example/android/app/.cxx/Debug/6a1b426c/x86_64/CMakeFiles/edit_cache.dir
+D:/MyWorks/usb_serial_scanners/example/android/app/.cxx/Debug/6a1b426c/x86_64/CMakeFiles/rebuild_cache.dir
