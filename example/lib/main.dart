@@ -78,7 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 return ListTile(
                   title: Text(scanner.device.productName ?? ''),
                   subtitle: Text(scanner.device.manufacturerName ?? ''),
-                  trailing: Icon(scanner.isConnected ? Icons.usb : Icons.usb_off),
+                  trailing:
+                      Icon(scanner.isConnected ? Icons.usb : Icons.usb_off),
                 );
               },
             ),
@@ -89,7 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 onScan: (data) {
                   scannedData.add(data);
                   setState(() {});
-                  _scrollController.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                  _scrollController.animateTo(0,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut);
                 },
                 child: ListView.builder(
                   itemCount: scannedData.reversed.length,
@@ -139,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 200,
                       validationValue: 'This scanner is connected',
                       filter: (v) {
-                        return !(v.productName ?? '').toLowerCase().contains('printer') &&
+                        return !v.key.toLowerCase().contains('printer') &&
                             !v.key.toLowerCase().contains('ilitek');
                       },
                     ),

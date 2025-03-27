@@ -66,7 +66,7 @@ class ScannersFinder {
   }
 
   Future<void> _onDataReceived(String data, UsbDevice device) async {
-    if (data.contains(validationValue)) {
+    if (data == validationValue) {
       if (UsbSerialScannersManager.scanners.any((s) => s.device.key == device.key)) {
         final scanner = UsbSerialScannersManager.scanners.firstWhere((s) => s.device.key == device.key);
         scanner.onRead('This scanner is already added');

@@ -26,6 +26,18 @@ class ScannersMetaRepo {
     await prefs.setStringList(usbSerialDevicePrefKey, updatedJsons);
   }
 
+  static Future<void> removeScanner(UsbSerialScanner scanner) async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> jsons = prefs.getStringList(usbSerialDevicePrefKey) ?? [];
+    final meta = scanner.meta;
+    final updatedJsons = jsons.where((json) {
+      final m = jsonDecode(json) as Map<String, dynamic>;
+      final savedMeta = UsbSerialScannerMeta.fromJSON(m);
+      return savedMeta.key != meta.key;
+    }).toList();
+    await prefs.setStringList(usbSerialDevicePrefKey, updatedJsons);
+  }
+
   static Future<void> clear() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(usbSerialDevicePrefKey);

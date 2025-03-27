@@ -103,6 +103,13 @@ class UsbSerialScannersManager {
     notifylisteners();
   }
 
+  static Future<void> removeScanner(UsbSerialScanner scanner) async {
+    await scanner.disconnect();
+    _scanners.removeWhere((s) => s.device.key == scanner.device.key);
+    await ScannersMetaRepo.removeScanner(scanner);
+    notifylisteners();
+  }
+
   static void notifylisteners() {
     for (var element in listeners) {
       element();
