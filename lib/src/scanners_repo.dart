@@ -13,7 +13,7 @@ class ScannersMetaRepo {
       try {
         final m = jsonDecode(json) as Map<String, dynamic>;
         metas.add(UsbSerialScannerMeta.fromJSON(m));
-      } on FormatException catch (e, s) {
+      } on FormatException catch (e) {
         // Log the error and skip the invalid entry
         if (kDebugMode) {
           print('ScannersMetaRepo ERROR: Failed to decode saved scanner meta: $e');
@@ -22,7 +22,7 @@ class ScannersMetaRepo {
         }
         // Optionally remove the invalid entry here?
         // await _removeInvalidJsonEntry(prefs, json);
-      } catch (e, s) {
+      } catch (e) {
         // Catch other potential errors during fromJSON conversion
          if (kDebugMode) {
           print('ScannersMetaRepo ERROR: Failed to process saved scanner meta: $e');

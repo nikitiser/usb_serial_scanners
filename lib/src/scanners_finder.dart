@@ -88,7 +88,7 @@ class ScannersFinder {
            if (kDebugMode) print('ScannersFinder: Failed to temporarily connect to ${device.productName}.');
            await validationScanner.disconnect(); // Ensure cleanup
         }
-      } catch (e, s) {
+      } catch (e) {
          // Don't propagate temporary connection errors, just log for debug
          if (kDebugMode) print('ScannersFinder DEBUG: Error connecting validation scanner ${device.productName}: $e');
          // _handleError(e, s, 'Error connecting validation scanner ${device.productName}'); // REMOVED
@@ -130,7 +130,7 @@ class ScannersFinder {
              } else {
                 await validationScanner.disconnect();
              }
-           } catch (e, s) {
+           } catch (e) {
               // Don't propagate temporary connection errors, just log for debug
               if (kDebugMode) print('ScannersFinder DEBUG: Error connecting validation scanner ${device.productName} after attach: $e');
               // _handleError(e, s, 'Error connecting validation scanner ${device.productName} after attach'); // REMOVED
